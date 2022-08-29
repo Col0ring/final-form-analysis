@@ -1,5 +1,6 @@
 // @flow
 import shallowEqual from "./shallowEqual";
+// 过滤需要更新的值
 export default function <T: { [string]: any }>(
   dest: T,
   src: T,

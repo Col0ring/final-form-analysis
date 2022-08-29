@@ -7,6 +7,9 @@ export type FormValuesShape = {
   [string]: any,
 };
 
+/**
+ * 监听的值
+ */
 export type FormSubscription = {
   active?: boolean,
   dirty?: boolean,

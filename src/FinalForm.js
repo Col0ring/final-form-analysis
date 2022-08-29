@@ -126,6 +126,7 @@ function notifySubscriber<T: Object>(
   filter: StateFilter<T>,
   force,
 ): boolean {
+  // 过滤后通知
   const notification: ?T = filter(state, lastState, subscription, force);
   if (notification) {
     subscriber(notification);
@@ -134,6 +135,7 @@ function notifySubscriber<T: Object>(
   return false;
 }
 
+// 发送通知
 function notify<T: Object>(
   { entries }: Subscribers<T>,
   state: T,
@@ -809,7 +811,8 @@ function createForm<FormValues: FormValuesShape>(
       formState.values = values;
       // restore the dirty values
       Object.keys(savedDirtyValues).forEach((key) => {
-        formState.values = setIn(formState.values, key, savedDirtyValues[key]) || {};
+        formState.values =
+          setIn(formState.values, key, savedDirtyValues[key]) || {};
       });
       runValidation(undefined, () => {
         notifyFieldListeners();
@@ -1192,6 +1195,7 @@ function createForm<FormValues: FormValuesShape>(
 
     subscribe: (
       subscriber: FormSubscriber<FormValues>,
+      // 监听 options
       subscription: FormSubscription,
     ): Unsubscribe => {
       if (!subscriber) {
@@ -1211,6 +1215,7 @@ function createForm<FormValues: FormValuesShape>(
         notified: false,
       };
       const nextFormState = calculateNextFormState();
+      // 初始化的时候会发送一个 notify
       notifySubscriber(
         memoized,
         subscription,
